@@ -1,0 +1,7 @@
+{
+  "name": "coronadetector",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
