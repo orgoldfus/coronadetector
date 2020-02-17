@@ -12,7 +12,7 @@ import {
 } from "@ionic/react"
 
 interface AnalyzeSelfieProps {
-  photo: string,
+  photo: string
   clearPhoto: any
 }
 
@@ -20,12 +20,17 @@ const AnalyzeSelfie: React.FC<AnalyzeSelfieProps> = ({ clearPhoto, photo }) => {
   return (
     <React.Fragment>
       <IonGrid>
-        <IonRow>
-          <IonImg src={photo} />
+        <IonRow className="photo">
+          <IonImg className="photo" src={photo} />
         </IonRow>
         <IonRow>
           <IonText className="details" color="primary">
             <h1>Analyzing...</h1>
+          </IonText>
+        </IonRow>
+        <IonRow>
+          <IonText className="details" color="primary">
+            <p>{`Debug: ${photo}`}</p>
           </IonText>
         </IonRow>
       </IonGrid>

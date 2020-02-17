@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "coronadetector",
+  "appId": "com.banditos.corona",
+  "appName": "Coronavirus Detector",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",
