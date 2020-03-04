@@ -1,14 +1,6 @@
 import React from "react"
 import "./TakeSelfie.css"
-import { camera } from "ionicons/icons"
-import {
-  IonFab,
-  IonFabButton,
-  IonIcon,
-  IonGrid,
-  IonRow,
-  IonText
-} from "@ionic/react"
+import { IonButton, IonGrid, IonRow, IonText, IonIcon } from "@ionic/react"
 
 interface TakeSelfieProps {
   takePhoto: any
@@ -19,21 +11,27 @@ const TakeSelfie: React.FC<TakeSelfieProps> = ({ takePhoto }) => {
     <React.Fragment>
       <IonGrid>
         <IonRow>
-          <IonText className="instructions" color="primary">
-            <h1>Take a selfie to check if you caught the Coronavirus</h1>
+          <IonText className="instructions" color="black">
+            <h1 style={{ fontSize: "4rem" }}>Coronavirus</h1>
+            <h1 style={{ fontSize: "3rem" }}>Detector</h1>
           </IonText>
         </IonRow>
       </IonGrid>
-      <IonFab
-        className="actionButton"
-        vertical="bottom"
-        horizontal="center"
-        slot="fixed"
+
+      <IonButton
+        style={{ width: "20rem" }}
+        color="warning"
+        size="large"
+        shape="round"
+        expand="block"
+        onClick={takePhoto}
       >
-        <IonFabButton onClick={takePhoto}>
-          <IonIcon icon={camera}></IonIcon>
-        </IonFabButton>
-      </IonFab>
+        Scan here
+      </IonButton>
+
+      <IonButton>
+        <IonIcon>?</IonIcon>
+      </IonButton>
     </React.Fragment>
   )
 }
