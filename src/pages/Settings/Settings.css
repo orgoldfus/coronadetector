@@ -1,0 +1,34 @@
+.result-container {
+  height: 100%;
+}
+
+.photo {
+  max-height: 12rem;
+  border-radius: 50%;
+}
+
+.status-container {
+  display: flex;
+  justify-content: center;
+  height: 35%;
+  max-height: 35%;
+}
+
+.image-container {
+  height: 35%;
+  max-height: 35%;
+}
+
+.actionButton {
+  padding-bottom: 2rem;
+}
+
+.details {
+  font-size: 2.5rem;
+  animation: color_change 1s infinite alternate;
+}
+
+@keyframes color_change {
+	from { color: white; }
+	to { color: yellow; }
+}

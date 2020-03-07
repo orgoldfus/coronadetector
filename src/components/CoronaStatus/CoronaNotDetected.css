@@ -1,0 +1,26 @@
+.no-corona-message {
+  font-size: 3rem;
+  animation: blinkingText 1.5s infinite;
+}
+
+.no-corona-container {
+  text-align: center;
+}
+
+@keyframes blinkingText {
+  0% {
+    color: greenyellow;
+  }
+  49% {
+    color: greenyellow;
+  }
+  60% {
+    color: transparent;
+  }
+  99% {
+    color: transparent;
+  }
+  100% {
+    color: greenyellow;
+  }
+}

@@ -1,0 +1,26 @@
+.corona-message {
+  font-size: 3rem;
+  animation: detectedBlinkingText 0.5s infinite;
+}
+
+.corona-container {
+  text-align: center;
+}
+
+@keyframes detectedBlinkingText {
+  0% {
+    color: red;
+  }
+  49% {
+    color: red;
+  }
+  60% {
+    color: white;
+  }
+  99% {
+    color: white;
+  }
+  100% {
+    color: red;
+  }
+}

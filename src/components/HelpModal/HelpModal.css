@@ -1,0 +1,12 @@
+.disclaimer-modal {
+  --background: none;
+}
+
+.disclaimer-modal-text {
+  color: white;
+}
+
+.disclaimer-modal-close {
+  text-align: center;
+  padding-top: 3rem;
+}

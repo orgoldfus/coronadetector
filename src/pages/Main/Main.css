@@ -1,9 +1,7 @@
-ion-content {
-    --background: #fff url('../../assets/corona.jpeg') no-repeat center center / cover;
-
-    /*--background: black;*/
+.main {
+  --background: #fff url("../../assets/main.jpeg") no-repeat center center /
+    cover;
 }
-
 
 .instructions {
   text-align: center;
@@ -12,4 +10,30 @@ ion-content {
 
 .actionButton {
   padding-bottom: 2rem;
+}
+
+.instructions {
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.actionButton {
+  padding-bottom: 2rem;
+}
+
+.scan-main-grid {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.settings-btn {
+  float: left;
+  margin-left: 1rem;
+}
+
+.disclaimer-btn {
+  float: right;
+  margin-right: 1rem;
 }
