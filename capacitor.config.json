@@ -1,6 +1,6 @@
 {
-  "appId": "com.banditos.corona",
-  "appName": "Coronavirus Detector",
+  "appId": "com.covid.detector",
+  "appName": "COVID Detector",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",

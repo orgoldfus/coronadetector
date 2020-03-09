@@ -1,5 +1,5 @@
 {
-  "name": "coronadetector",
+  "name": "COVID Detector",
   "integrations": {
     "capacitor": {}
   },
