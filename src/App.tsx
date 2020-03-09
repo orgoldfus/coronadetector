@@ -2,9 +2,9 @@ import React from "react"
 import MainPage from "./pages/Main"
 import AnalyzeSelfie from "./pages/AnalyzeSelfie"
 import Settings from "./pages/Settings"
-import { IonApp, IonRouterOutlet } from "@ionic/react"
+import { IonApp } from "@ionic/react"
 import { IonReactRouter } from "@ionic/react-router"
-import { Route } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 import { useCameraCapabilities } from "./hooks/useCameraCapabilities"
 
 /* Core CSS required for Ionic components to work properly */
@@ -32,9 +32,7 @@ const App: React.FC = () => {
   return (
     <IonApp>
       <IonReactRouter>
-        <IonRouterOutlet
-        // animated={false}
-        >
+        <Switch>
           <Route
             path="/"
             render={() => <MainPage takePhoto={takePhoto} />}
@@ -48,7 +46,7 @@ const App: React.FC = () => {
             exact={true}
           />
           <Route path="/settings" render={() => <Settings />} exact={true} />
-        </IonRouterOutlet>
+        </Switch>
       </IonReactRouter>
     </IonApp>
   )
