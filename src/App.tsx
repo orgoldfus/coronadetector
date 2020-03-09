@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import MainPage from "./pages/Main"
 import AnalyzeSelfie from "./pages/AnalyzeSelfie"
 import Settings from "./pages/Settings"
@@ -26,11 +26,8 @@ import "@ionic/react/css/display.css"
 /* Theme variables */
 import "./theme/variables.css"
 
-const positiveResultPercentage = 30
-
 const App: React.FC = () => {
   const { photo, takePhoto, clearPhoto } = useCameraCapabilities()
-  const [detectionResult, setDetectionResult] = useState()
 
   return (
     <IonApp>
@@ -40,23 +37,13 @@ const App: React.FC = () => {
         >
           <Route
             path="/"
-            render={() => (
-              <MainPage
-                takePhoto={takePhoto}
-                positiveResultPercentage={positiveResultPercentage}
-                setDetectionResult={setDetectionResult}
-              />
-            )}
+            render={() => <MainPage takePhoto={takePhoto} />}
             exact={true}
           />
           <Route
             path="/analyze"
             render={() => (
-              <AnalyzeSelfie
-                photo={photo}
-                clearPhoto={clearPhoto}
-                isCoronaDetected={detectionResult}
-              />
+              <AnalyzeSelfie photo={photo} clearPhoto={clearPhoto} />
             )}
             exact={true}
           />

@@ -8,8 +8,7 @@
 }
 
 .photo {
-  max-height: 12rem;
-  border-radius: 50%;
+  max-height: 300px;
 }
 
 .status-container {
@@ -22,6 +21,8 @@
 .image-container {
   height: 35%;
   max-height: 35%;
+  display: flex;
+  justify-content: center;
 }
 
 .actionButton {

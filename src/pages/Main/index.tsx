@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { IonContent, IonPage } from "@ionic/react"
 import { useHistory } from "react-router-dom"
-import { randomBoolean } from "../../utils/misc"
 import "./Main.css"
 import {
   IonButton,
@@ -16,23 +15,16 @@ import HelpModal from "../../components/HelpModal"
 
 interface MainProps {
   takePhoto: any
-  setDetectionResult: any
-  positiveResultPercentage: number
 }
 
 const Main: React.FC<MainProps> = ({
-  takePhoto,
-  setDetectionResult,
-  positiveResultPercentage
+  takePhoto
 }) => {
   const [showDisclaimer, setShowDisclaimer] = useState(false)
   const history = useHistory()
 
   const onTakePhoto = (event: any) => {
     event.preventDefault()
-
-    const isCoronaDetected = randomBoolean(positiveResultPercentage)
-    setDetectionResult(isCoronaDetected)
     takePhoto().then(() => history.push("/analyze"))
   }
 

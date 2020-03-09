@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from "react"
-import { Plugins } from "@capacitor/core"
+import React from "react"
+import { useHistory } from "react-router-dom"
 import "./Settings.css"
-import { close } from "ionicons/icons"
+import { useDetectionRate } from "../../hooks/useDetectionRate"
 import {
   IonCol,
   IonContent,
-  IonFab,
-  IonFabButton,
   IonGrid,
-  IonIcon,
-  IonImg,
   IonItem,
   IonLabel,
   IonPage,
@@ -18,65 +14,67 @@ import {
   IonText,
   IonButton
 } from "@ionic/react"
-const { Storage } = Plugins
 
 const Settings: React.FC = () => {
-  const [
-    positiveDetectionPercentage,
-    setPositiveDetectionPercentage
-  ] = useState(30)
-
-  useEffect(() => {
-    const getPositiveDetectionPercentage = async () => {
-      const pdPercentage = await Storage.get({
-        key: "positiveDetectionPercentage"
-      })
-
-      if (pdPercentage.value) {
-        setPositiveDetectionPercentage(+pdPercentage)
-      }
-    }
-
-    getPositiveDetectionPercentage()
-  }, [])
+  const {
+    detectionRate,
+    setDetectionRate,
+    saveDetectionRate
+  } = useDetectionRate()
+  const history = useHistory()
 
   const onDetectPercentChange = (event: any) => {
-    setPositiveDetectionPercentage(event.detail.value)
+    setDetectionRate(event.detail.value)
   }
 
   const onSaveSettings = async () => {
-    await Storage.set({
-      key: "positiveDetectionPercentage",
-      value: positiveDetectionPercentage.toString()
-    })
+    saveDetectionRate()
+    history.replace("/")
+  }
+
+  const onCancel = async () => {
+    history.replace("/")
   }
 
   return (
     <IonPage>
       <IonContent>
-        <IonGrid className="result-container">
-          <IonRow className="image-container">
+        <IonGrid className="settings-wrapper">
+          <IonRow className="title-wrapper">
             <IonCol>
               <IonText>
-                <h1>Settings</h1>
+                <h3>Settings</h3>
               </IonText>
             </IonCol>
           </IonRow>
-          <IonRow>
+          <IonRow className="options-wrapper">
             <IonCol>
               <IonItem>
                 <IonLabel className="ion-text-wrap">
                   <IonText color="primary">
-                    <h1>True detection %</h1>
+                    <h1>Positive detection rate</h1>
                   </IonText>
                 </IonLabel>
+              </IonItem>
+              <IonItem>
                 <IonRange
                   pin={true}
                   onIonChange={onDetectPercentChange}
-                  value={positiveDetectionPercentage}
+                  value={detectionRate}
                 />
               </IonItem>
-              <IonButton onClick={onSaveSettings}>Save</IonButton>
+            </IonCol>
+          </IonRow>
+          <IonRow className="buttons-wrapper">
+            <IonCol className="button-wrapper">
+              <IonButton color="medium" onClick={onCancel}>
+                Cancel
+              </IonButton>
+            </IonCol>
+            <IonCol className="button-wrapper">
+              <IonButton color="primary" onClick={onSaveSettings}>
+                Save
+              </IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>

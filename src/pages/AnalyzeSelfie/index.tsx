@@ -6,13 +6,13 @@ import {
   CoronaDetected,
   CoronaNotDetected
 } from "../../components/CoronaStatus"
+import { randomBoolean } from "../../utils/misc"
+import { useDetectionRate } from "../../hooks/useDetectionRate"
 import {
-  IonCol,
   IonContent,
   IonFab,
   IonFabButton,
   IonIcon,
-  IonImg,
   IonGrid,
   IonPage,
   IonRow,
@@ -20,21 +20,24 @@ import {
 } from "@ionic/react"
 
 interface AnalyzeSelfieProps {
-  isCoronaDetected: boolean
   clearPhoto: any
-  photo: string
+  photo: string | undefined
 }
 
 const AnalyzeSelfie: React.FC<AnalyzeSelfieProps> = ({
-  isCoronaDetected,
   clearPhoto,
   photo
 }) => {
   const [analyzing, setAnalyzing] = useState(true)
+  const [isCoronaDetected, setIsCoronaDetected] = useState(true)
+  const { detectionRate } = useDetectionRate()
   const history = useHistory()
 
   useEffect(() => {
     setTimeout(() => setAnalyzing(false), 3000)
+    const detectionResult = randomBoolean(detectionRate)
+    setIsCoronaDetected(detectionResult)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onClearPhoto = (event: any) => {
@@ -60,9 +63,7 @@ const AnalyzeSelfie: React.FC<AnalyzeSelfieProps> = ({
             )}
           </IonRow>
           <IonRow className="image-container">
-            <IonCol>
-              <IonImg className="photo" src={photo} />
-            </IonCol>
+            <img className="photo" src={photo} alt="analysis target" />
           </IonRow>
         </IonGrid>
         <IonFab
