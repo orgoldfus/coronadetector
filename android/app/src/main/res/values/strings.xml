@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Coronavirus Detector</string>
-    <string name="title_activity_main">Coronavirus Detector</string>
-    <string name="package_name">com.banditos.corona</string>
-    <string name="custom_url_scheme">com.banditos.corona</string>
+    <string name="app_name">COVID-19 Detector</string>
+    <string name="title_activity_main">COVID-19 Detector</string>
+    <string name="package_name">com.ogda.covidetector</string>
+    <string name="custom_url_scheme">com.ogda.covidetector</string>
 </resources>

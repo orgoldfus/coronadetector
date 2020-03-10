@@ -1,6 +1,6 @@
 {
-  "appId": "com.covid.detector",
-  "appName": "COVID Detector",
+  "appId": "com.ogda.covidetector",
+  "appName": "COVID-19 Detector",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "build",

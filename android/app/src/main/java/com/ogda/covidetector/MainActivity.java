@@ -1,4 +1,4 @@
-package com.banditos.corona;
+package com.ogda.covidetector;
 
 import android.os.Bundle;
 
