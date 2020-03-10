@@ -7,7 +7,7 @@ import {
   CoronaNotDetected
 } from "../../components/CoronaStatus"
 import { randomBoolean } from "../../utils/misc"
-import { Plugins } from "@capacitor/core"
+import { fetchDataFromStorage } from "../../utils/storage"
 import { DEFAULT_POSITIVE_DETECTION_RATE } from "../../constants"
 import {
   IonContent,
@@ -19,36 +19,31 @@ import {
   IonRow,
   IonText
 } from "@ionic/react"
-const { Storage } = Plugins
 
 interface AnalyzeSelfieProps {
   clearPhoto: any
   photo: string | undefined
 }
 
-const AnalyzeSelfie: React.FC<AnalyzeSelfieProps> = ({
-  clearPhoto,
-  photo
-}) => {
+const AnalyzeSelfie: React.FC<AnalyzeSelfieProps> = ({ clearPhoto, photo }) => {
   const [analyzing, setAnalyzing] = useState(true)
   const [isCoronaDetected, setIsCoronaDetected] = useState(true)
   const history = useHistory()
 
   useEffect(() => {
     const setDetectionResult = async () => {
-      const pdPercentage = await Storage.get({
-        key: "positiveDetectionPercentage"
-      })
-
-      const detectionRate = pdPercentage.value || pdPercentage.value === "0" ? +pdPercentage.value : DEFAULT_POSITIVE_DETECTION_RATE
+      const pdPercentage = await fetchDataFromStorage(
+        "positiveDetectionPercentage"
+      )
+      const detectionRate = pdPercentage
+        ? +pdPercentage
+        : DEFAULT_POSITIVE_DETECTION_RATE
       const detectionResult = randomBoolean(detectionRate)
       setIsCoronaDetected(detectionResult)
-    
-      console.log("DetectionRate", detectionRate, "Result", detectionResult)
     }
 
     setTimeout(() => setAnalyzing(false), 3000)
-    setDetectionResult()   
+    setDetectionResult()
   }, [])
 
   const onClearPhoto = (event: any) => {

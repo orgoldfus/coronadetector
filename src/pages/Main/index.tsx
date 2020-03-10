@@ -1,6 +1,7 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { IonContent, IonPage } from "@ionic/react"
 import { useHistory } from "react-router-dom"
+import { fetchDataFromStorage, saveDataToStorage } from "../../utils/storage"
 import "./Main.css"
 import {
   IonButton,
@@ -17,15 +18,36 @@ interface MainProps {
   takePhoto: any
 }
 
-const Main: React.FC<MainProps> = ({
-  takePhoto
-}) => {
+const Main: React.FC<MainProps> = ({ takePhoto }) => {
   const [showDisclaimer, setShowDisclaimer] = useState(false)
+  const [isFirstLaunch, setIsFirstLaunch] = useState(false)
   const history = useHistory()
+
+  useEffect(() => {
+    const handleFirstLauch = async () => {
+      const isFirstLaunch = !(await fetchDataFromStorage(
+        "isAppWasLaunchedBefore"
+      ))
+
+      if (isFirstLaunch) {
+        setIsFirstLaunch(true)
+        setShowDisclaimer(true)
+      }
+    }
+
+    handleFirstLauch()
+  }, [])
 
   const onTakePhoto = (event: any) => {
     event.preventDefault()
     takePhoto().then(() => history.push("/analyze"))
+  }
+
+  const onCloseHelpModal = async () => {
+    if(isFirstLaunch) {
+      await saveDataToStorage("isAppWasLaunchedBefore", true)
+    }
+    setShowDisclaimer(false)
   }
 
   return (
@@ -79,7 +101,7 @@ const Main: React.FC<MainProps> = ({
         </IonGrid>
         <HelpModal
           isOpen={showDisclaimer}
-          onDismiss={() => setShowDisclaimer(false)}
+          onDismiss={onCloseHelpModal}
         />
       </IonContent>
     </IonPage>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
-import { Plugins } from "@capacitor/core"
 import { DEFAULT_POSITIVE_DETECTION_RATE } from "../../constants"
+import { fetchDataFromStorage, saveDataToStorage } from "../../utils/storage"
 import "./Settings.css"
 import {
   IonCol,
@@ -15,7 +15,6 @@ import {
   IonText,
   IonButton
 } from "@ionic/react"
-const { Storage } = Plugins
 
 const Settings: React.FC = () => {
   const [positiveDetectionRate, setPositiveDetectionRate] = useState(
@@ -25,15 +24,11 @@ const Settings: React.FC = () => {
 
   useEffect(() => {
     const getPositiveDetectionRate = async () => {
-      const pdPercentage = await Storage.get({
-        key: "positiveDetectionPercentage"
-      })
+      const pdPercentage = await fetchDataFromStorage("positiveDetectionPercentage")
 
-      if (pdPercentage.value) {
-        setPositiveDetectionRate(+pdPercentage.value)
+      if (pdPercentage) {
+        setPositiveDetectionRate(+pdPercentage)
       }
-
-      console.log("Updated from storage")
     }
 
     getPositiveDetectionRate()
@@ -44,10 +39,7 @@ const Settings: React.FC = () => {
   }
 
   const onSaveSettings = async () => {
-    await Storage.set({
-      key: "positiveDetectionPercentage",
-      value: positiveDetectionRate.toString()
-    })
+    await saveDataToStorage("positiveDetectionPercentage", positiveDetectionRate)
     history.replace("/")
   }
 
