@@ -7,7 +7,8 @@ import {
   CoronaNotDetected
 } from "../../components/CoronaStatus"
 import { randomBoolean } from "../../utils/misc"
-import { useDetectionRate } from "../../hooks/useDetectionRate"
+import { Plugins } from "@capacitor/core"
+import { DEFAULT_POSITIVE_DETECTION_RATE } from "../../constants"
 import {
   IonContent,
   IonFab,
@@ -18,6 +19,7 @@ import {
   IonRow,
   IonText
 } from "@ionic/react"
+const { Storage } = Plugins
 
 interface AnalyzeSelfieProps {
   clearPhoto: any
@@ -30,14 +32,23 @@ const AnalyzeSelfie: React.FC<AnalyzeSelfieProps> = ({
 }) => {
   const [analyzing, setAnalyzing] = useState(true)
   const [isCoronaDetected, setIsCoronaDetected] = useState(true)
-  const { detectionRate } = useDetectionRate()
   const history = useHistory()
 
   useEffect(() => {
+    const setDetectionResult = async () => {
+      const pdPercentage = await Storage.get({
+        key: "positiveDetectionPercentage"
+      })
+
+      const detectionRate = pdPercentage.value || pdPercentage.value === "0" ? +pdPercentage.value : DEFAULT_POSITIVE_DETECTION_RATE
+      const detectionResult = randomBoolean(detectionRate)
+      setIsCoronaDetected(detectionResult)
+    
+      console.log("DetectionRate", detectionRate, "Result", detectionResult)
+    }
+
     setTimeout(() => setAnalyzing(false), 3000)
-    const detectionResult = randomBoolean(detectionRate)
-    setIsCoronaDetected(detectionResult)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setDetectionResult()   
   }, [])
 
   const onClearPhoto = (event: any) => {

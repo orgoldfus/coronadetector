@@ -41,7 +41,10 @@ const App: React.FC = () => {
           <Route
             path="/analyze"
             render={() => (
-              <AnalyzeSelfie photo={photo} clearPhoto={clearPhoto} />
+              <AnalyzeSelfie
+                photo={photo}
+                clearPhoto={clearPhoto}
+              />
             )}
             exact={true}
           />

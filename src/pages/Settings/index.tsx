@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
+import { Plugins } from "@capacitor/core"
+import { DEFAULT_POSITIVE_DETECTION_RATE } from "../../constants"
 import "./Settings.css"
-import { useDetectionRate } from "../../hooks/useDetectionRate"
 import {
   IonCol,
   IonContent,
@@ -14,21 +15,39 @@ import {
   IonText,
   IonButton
 } from "@ionic/react"
+const { Storage } = Plugins
 
 const Settings: React.FC = () => {
-  const {
-    detectionRate,
-    setDetectionRate,
-    saveDetectionRate
-  } = useDetectionRate()
+  const [positiveDetectionRate, setPositiveDetectionRate] = useState(
+    DEFAULT_POSITIVE_DETECTION_RATE
+  )
   const history = useHistory()
 
+  useEffect(() => {
+    const getPositiveDetectionRate = async () => {
+      const pdPercentage = await Storage.get({
+        key: "positiveDetectionPercentage"
+      })
+
+      if (pdPercentage.value) {
+        setPositiveDetectionRate(+pdPercentage.value)
+      }
+
+      console.log("Updated from storage")
+    }
+
+    getPositiveDetectionRate()
+  }, [])
+
   const onDetectPercentChange = (event: any) => {
-    setDetectionRate(event.detail.value)
+    setPositiveDetectionRate(event.detail.value)
   }
 
   const onSaveSettings = async () => {
-    saveDetectionRate()
+    await Storage.set({
+      key: "positiveDetectionPercentage",
+      value: positiveDetectionRate.toString()
+    })
     history.replace("/")
   }
 
@@ -60,7 +79,7 @@ const Settings: React.FC = () => {
                 <IonRange
                   pin={true}
                   onIonChange={onDetectPercentChange}
-                  value={detectionRate}
+                  value={positiveDetectionRate}
                 />
               </IonItem>
             </IonCol>
