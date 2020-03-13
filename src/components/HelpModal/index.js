@@ -30,9 +30,10 @@ export default function HelpModal({ isOpen, onDismiss }) {
                 {`This app doesn't really detect the existance or absence of coronavirus.`}
               </p>
               <p>
-                {`The purpose of this app is to reduce the tension surrounding the coronavirus world wide.`}
+                {`The purpose of this app is to reduce the tension surrounding the coronavirus worldwide.`}
               </p>
-              <p>{`We believe that a good laugh do wonders to your immune system :)`}</p>
+              <p>{`We believe that a good laugh does wonders to your immune system :)`}</p>
+              {/* TODO: Add link to privacy policy */}
             </IonText>
           </div>
           <div className="disclaimer-modal-close">
